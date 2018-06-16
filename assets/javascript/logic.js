@@ -16,13 +16,14 @@ const database = firebase.database();
 
 
 
-$(`#submitBtn`).on('click', function (event) {
-event.preventDefault();
 
-    let trainName = $('#trainName').val().trim()
-    let destination = $('#destination').val().trim()
-    let firstTrain = $('#firstTrainTime').val().trim()
-    let frequency = $('#frequency').val().trim()
+$(`#submitBtn`).on('click', function(event) {
+    event.preventDefault();
+
+    trainName = $('#trainName').val().trim()
+    destination = $('#destination').val().trim()
+    firstTrain = $('#firstTrainTime').val().trim()
+    frequency = $('#frequency').val().trim()
 
     database.ref().push({
         Name: trainName,
@@ -37,9 +38,25 @@ event.preventDefault();
     $('#frequency').val(" ");
 
 
-    let newRow = $('<tr>').html(`<td></td><td>${trainName}</td><td>${destination}</td><td>${firstTrain}</td><td>${frequency}</td>`)
-
-    $('tbody').append(newRow)
+    
 
 
 })
+
+
+
+database.ref().on("child_added", function(buckets) {
+
+    prevName = buckets.val().Name;
+    prevDest = buckets.val().Destination;
+    prev1Time = buckets.val().First;
+    prevFreq = buckets.val().Frequent;
+    
+    
+    let newRow = $('<tr>').html(`<td></td><td>${prevName}</td><td>${prevDest}</td><td>${prev1Time}</td><td>${prevFreq}</td>`)
+
+    $('tbody').append(newRow)
+    
+  }, function(errorObject) {
+    console.log("Errors handled: " + errorObject.code);
+  });
