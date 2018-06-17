@@ -10,14 +10,10 @@ var config = {
 
 firebase.initializeApp(config);
 
-
 const database = firebase.database();
 
 
-
-
-
-$(`#submitBtn`).on('click', function(event) {
+$(`#submitBtn`).on('click', function (event) {
     event.preventDefault();
 
     trainName = $('#trainName').val().trim()
@@ -36,27 +32,47 @@ $(`#submitBtn`).on('click', function(event) {
     $('#destination').val(" ");
     $('#firstTrainTime').val(" ");
     $('#frequency').val(" ");
-
-
-    
-
-
+    timeUpdate();
 })
 
+timeUpdate();
+setInterval(timeUpdate, 30000)
 
 
-database.ref().on("child_added", function(buckets) {
+function timeUpdate() {
 
-    prevName = buckets.val().Name;
-    prevDest = buckets.val().Destination;
-    prev1Time = buckets.val().First;
-    prevFreq = buckets.val().Frequent;
-    
-    
-    let newRow = $('<tr>').html(`<td></td><td>${prevName}</td><td>${prevDest}</td><td>${prev1Time}</td><td>${prevFreq}</td>`)
+    $('tbody').empty();
+
+    database.ref().on("child_added", function (buckets) {
+
+        prevName = buckets.val().Name;
+        prevDest = buckets.val().Destination;
+        prev1Time = buckets.val().First;
+        prevFreq = buckets.val().Frequent;
+
+        timeTrain();
+
+        console.log(buckets.val())
+
+    }, function (errorObject) {
+        console.log("Errors handled: " + errorObject.code);
+    });
+
+};
+
+function timeTrain() {
+    let trainFreq = parseInt(prevFreq);
+    let firstTime = prev1Time;
+
+    let timeConvert = moment(firstTime, "hh:mm").subtract(1, 'year');
+    let currentTime = moment();
+    let diffTime = moment().diff(moment(timeConvert), "minutes");
+    let tRemainder = diffTime % trainFreq;
+    let minTilTrain = trainFreq - tRemainder;
+    let nextTrain = moment().add(minTilTrain, 'minutes').format('hh:mm');
+
+
+    newRow = $('<tr>').html(`<td></td><td>${prevName}</td><td>${prevDest}</td><td>${nextTrain}</td><td>${minTilTrain}</td>`)
 
     $('tbody').append(newRow)
-    
-  }, function(errorObject) {
-    console.log("Errors handled: " + errorObject.code);
-  });
+};

@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
         crossorigin="anonymous">
     <link rel='stylesheet' type="text/css" href="assets/style/style.css">
+    <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
 
     <title>TRAAAIIIIIIINS</title>
 </head>
@@ -29,8 +30,8 @@
                     <th scope="col">#</th>
                     <th scope="col">Train Name</th>
                     <th scope="col">Destination</th>
-                    <th scope="col">First Train Departure Time</th>
-                    <th scope="col">Train Frequency</th>
+                    <th scope="col">Next Train Leaves</th>
+                    <th scope="col">Minutes Til Next Train</th>
                 </tr>
             </thead>
             <tbody>
@@ -40,19 +41,19 @@
         <form>
                 <div class="form-group">
                   <label for="nameOfTrain">Name of Train</label>
-                  <input type="input" class="form-control" id="trainName" aria-describedby="trainName" placeholder="Enter train">
+                  <input type="input" class="form-control" id="trainName" aria-describedby="trainName" placeholder="Cornetto Triple Steam Engine">
                 </div>
                 <div class="form-group">
                   <label for="destination">Destination</label>
-                  <input type="input" class="form-control" id="destination" placeholder="Destination">
+                  <input type="input" class="form-control" id="destination" placeholder="Winchester">
                 </div>
                 <div class="form-group">
-                  <label for="firstTrainTime">First Departure Time</label>
-                  <input type="input" class="form-control" id="firstTrainTime" placeholder="First Departure Time">
+                  <label for="firstTrainTime">Time the First Train Departed (military time)</label>
+                  <input type="input" class="form-control" id="firstTrainTime" placeholder="14:25">
                 </div>
                 <div class="form-group">
-                  <label for="frequency">Frequency</label>
-                  <input type="input" class="form-control" id="frequency" placeholder="Frequency">
+                  <label for="frequency">Number of minutes between trains</label>
+                  <input type="input" class="form-control" id="frequency" placeholder="99">
                 </div>
                 <button type="button" class="btn btn-secondary btn-lg btn-block" id="submitBtn">Aaruguughhhghguuuaaahhhh
                         <br>
