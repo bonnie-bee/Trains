@@ -22,6 +22,7 @@ caption{
     background-color:  rgba(115, 115, 115, .6);
     text-align: center;
     color: white;
+    /* word-wrap: break-word; */
     
 }
 
