@@ -12,7 +12,6 @@ firebase.initializeApp(config);
 
 const database = firebase.database();
 
-
 $(`#submitBtn`).on('click', function (event) {
     event.preventDefault();
 
